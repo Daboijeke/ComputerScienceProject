@@ -1,9 +1,11 @@
+from turtle import width
 import pygame
 from pygame.locals import *
 from player import Player
 import time
 from enemy import Enemy
 import sys
+from buttons import Button
 
 pygame.init()  # Initializes pygame
 
@@ -17,6 +19,12 @@ screen = pygame.display.set_mode((monitor_res[0], monitor_res[1]), pygame.FULLSC
 clock = pygame.time.Clock()
 previousTime = time.time()
 
+setting_image = pygame.image.load('setting-2.png').convert_alpha()
+
+
+# Creates the settings button
+setting_button = Button(100, 200,setting_image, 2)
+
 # Player and Enemy Initialization
 player = Player(screen, monitor_res)
 enemy = Enemy(40, 40, 32, 32, 500, screen)
@@ -24,8 +32,8 @@ enemy = Enemy(40, 40, 32, 32, 500, screen)
 
 # Responsible for Drawing items onto the Screen (Use the Function for Drawings)
 def redrawGameWindow(bullets=None):
-    screen.fill((0, 0, 0))  # Constantly refreshes the screen with the color black
-
+    screen.fill((255, 0, 0))  # Constantly refreshes the screen with the color black
+    setting_button.drawbutton(screen)
     player.shoot(dt)
     enemy.draw(screen, dt)
     player.draw(dt)  # Detects button inputs of the user as well as its position on screen
@@ -49,7 +57,6 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-
 
         # Detects whenever the user presses down on a key
         if event.type == pygame.KEYDOWN:

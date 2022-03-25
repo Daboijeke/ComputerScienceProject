@@ -38,8 +38,9 @@ class Player():
 
     def getPlayerPositionY(self):
         return int(self.movement[1])
-
+#"Creates a fuction that allows the player to shoot a projectile"
     def shoot(self, dt):
+        "gets the position of the mouse"
         pos = pygame.mouse.get_pos()
         x_dist = (pos[0] - self.movement[0])
         y_dist = -(pos[1] - self.movement[1])
