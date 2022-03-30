@@ -1,6 +1,9 @@
 import pygame
 import math
 from projectile import Bullet
+from pygame import mixer
+pygame.mixer.init()
+projectile_sound = pygame.mixer.Sound('projectilesound.mp3')
 
 player = pygame.image.load("sprites/NewGumbo.png")
 bullets = []
@@ -42,11 +45,12 @@ class Player():
     def shoot(self, dt):
         "gets the position of the mouse"
         pos = pygame.mouse.get_pos()
-        x_dist = (pos[0] - self.movement[0])
-        y_dist = -(pos[1] - self.movement[1])
+        x_dist = (int(pos[0]) - int(self.movement[0]))
+        y_dist = -(int(pos[1]) - int(self.movement[1]))
         self.angle = float(math.atan2(y_dist, x_dist))
 
         if pygame.mouse.get_pressed()[0] and self.fire == False:
+            projectile_sound.play()
             self.fire = True
             bullet = Bullet((self.movement[0] + self.x/2), (self.movement[1] + self.y/2), self.angle, self.window)
             bullets.append(bullet)
